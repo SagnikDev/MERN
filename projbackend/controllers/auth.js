@@ -90,7 +90,30 @@ exports.signout=(req,res)=>{
 
 
 //Protected Routes
-
+//This is like a middlewire
+exports.isSignedIn=expressJwt({
+    secret:process.env.SECRET,
+    userProperty:'auth'
+})
 
 
 //Custom Middlewares
+exports.authenticated=(req,res,next)=>{
+    //profile is given by user portion
+    let checker=req.profile && req.auth && req.profile._id===req.auth._id
+    if(!checker){
+        res.status(403).json({
+            error:"ACCESS DENIED"
+        })
+    }
+    next()
+}
+
+exports.isAdmin=(req,res,next)=>{
+    if(req.profile.role==0){
+        res.status(403).json({
+            error:"You are not admin, ACCESS DENIED"
+        })
+    }
+    next()
+}
