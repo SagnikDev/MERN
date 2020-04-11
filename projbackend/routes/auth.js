@@ -19,6 +19,8 @@ router.post('/signin',[
 
 router.get("/signout",signout);
 
+
+//See in Postman with Header(Key=>Authorization and Value => Bearer "TokenValue")
 router.get("/testRoute",isSignedIn,(req,res)=>{
     res.json(req.auth)
 })
