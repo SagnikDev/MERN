@@ -5,8 +5,9 @@ const bodyParser=require('body-parser') //Importing package
 const cookieParser=require('cookie-parser') //Importing package
 const cors=require('cors') //Importing package
 const app=express()
-
+//My Routes Path
 const authRoutes=require('./routes/auth.js')
+const userRoutes=require('./routes/user.js')
 //Connection establishment
 mongoose.connect(process.env.DATABASE,{
     useNewUrlParser:true,
@@ -28,7 +29,7 @@ app.use(cors());
 
 //My routes
 app.use("/api",authRoutes)
-
+app.use("/api",userRoutes)
 
 //proess.env.PORT,process.env.DATABASE are comming from .env file
 const port=process.env.PORT
