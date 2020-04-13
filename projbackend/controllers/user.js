@@ -1,6 +1,6 @@
-//Importing User Model
+//Importing Models
 const User=require('../models/user.js')
-
+const Order=require("../models/order.js")
 //Finding an User by Object PARAM
 exports.getUserByID=(req,res,next,id)=>{
     User.findById(id).exec((err,user)=>{
@@ -35,4 +35,63 @@ exports.getAllUsers=(req,res)=>{
     })
 }
 
-  
+//For Updating
+exports.updateUser=(req,res)=>{
+    User.findByIdAndUpdate(
+        {_id:req.profile._id},
+        {$set:req.body},
+        {new:true,useFindAndModify:false},
+        (err,user)=>{
+            if(err || !user){
+                res.status(400).json({
+                    err:"You are not authorized to Update this user!!"
+                })
+            }
+            user.salt=undefined
+            user.encry_password=undefined
+            res.json(user)
+        } 
+        )   
+}
+
+//User Purchase List
+exports.userPurchaseList=(req,res)=>{
+    Order.find({user:req.profile._id})
+    .populate("user"," _id name").exec((err,order)=>{
+        if(err){
+            return res.status(400).json({
+                err : "No Order in this account"
+            })
+        }
+        return res.json(order)
+    })
+}
+//Make a middlewire to push orders in Purchaselist of User
+exports.pushOrderInPurchaseList=(req,res,next)=>{
+    let purchases=[]
+    req.body.order.products.forEach(product =>{
+        purchases.push({
+            _id:product._id,
+            name:product.name,
+            description:product.description,
+            category:product.category,
+            quantity:product.quantity,
+            amount:req.body.order.amount,
+            transaction_id:req.body.order.transaction_id
+        })
+    })
+    //Store into DB
+    User.findOneAndUpdate(
+       { _id : req.profile._id,},
+       {$push:{purchased:purchases} },
+       { new: true},
+       (err,purchase)=>{
+           if(err){
+               return res.status(800).json({
+                   err : "Unable to Save Purcase List"
+               })
+           }
+           next()
+       }
+    )
+}

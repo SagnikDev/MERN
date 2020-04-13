@@ -1,5 +1,5 @@
 const mongoose=require('mongoose') //Using for importing mongoose
-const {OrderId}=mongoose.Schema;  //Using for refer from another Schema
+const {ObjectId}=mongoose.Schema;  //Using for refer from another Schema
 //Creating a schema
 const productCartSchema=new mongoose.Schema({
     //Refering Product Schema
@@ -24,7 +24,7 @@ const orderSchema=new mongoose.Schema({
     address:String,
     updated:Date,
     user:{
-        type:OrderId,
+        type:ObjectId,
         ref:'User'
     },
 },{timestamps:true});

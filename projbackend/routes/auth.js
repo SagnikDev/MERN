@@ -2,7 +2,7 @@ var express=require("express")
 var router = express.Router()
 
 const {signout,signup,signin,isSignedIn }=require("../controllers/auth.js")
-//Express-validtor imclude
+//Express-validator include
 const { check,validationResult} = require('express-validator');
 
 //Implementing express-validator
