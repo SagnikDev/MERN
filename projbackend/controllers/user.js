@@ -3,7 +3,7 @@ const User=require('../models/user.js')
 const Order=require("../models/order.js")
 //Finding an User by Object PARAM
 exports.getUserByID=(req,res,next,id)=>{
-    User.findById(id).exec((err,user)=>{
+    User.findById({_id:id}).exec((err,user)=>{
         if(err || !user){
             return res.status(400).json({
                 err:"No User Found in DB"
@@ -54,7 +54,7 @@ exports.updateUser=(req,res)=>{
         )   
 }
 
-//User Purchase List
+//User Purchase List using "populate" method
 exports.userPurchaseList=(req,res)=>{
     Order.find({user:req.profile._id})
     .populate("user"," _id name").exec((err,order)=>{
