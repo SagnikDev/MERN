@@ -8,13 +8,14 @@ const app=express()
 //My Routes Path
 const authRoutes=require('./routes/auth.js')
 const userRoutes=require('./routes/user.js')
+const categoryRoutes=require('./routes/category.js')
 //Connection establishment
 mongoose.connect(process.env.DATABASE,{
     useNewUrlParser:true,
     useUnifiedTopology:true,
     useCreateIndex:true,
 }).then(()=>{
-    console.log('DB CONNECTED');
+    console.log('DB is CONNECTED,AWESOME!');
 }).catch(()=>{
     console.log('Error! DB NOT CONNECTED');
 })
@@ -30,11 +31,12 @@ app.use(cors());
 //My routes
 app.use("/api",authRoutes)
 app.use("/api",userRoutes)
+app.use("/api",categoryRoutes)
 
 //proess.env.PORT,process.env.DATABASE are comming from .env file
 const port=process.env.PORT
 
 //Starting a Server
 app.listen(port,()=>{
-    console.log(`App is running at ${port}`);
+    console.log(`Server is listening at PORT ${port}`);
 })
