@@ -9,6 +9,7 @@ const app=express()
 const authRoutes=require('./routes/auth.js')
 const userRoutes=require('./routes/user.js')
 const categoryRoutes=require('./routes/category.js')
+const productRoutes=require('./routes/product.js')
 //Connection establishment
 mongoose.connect(process.env.DATABASE,{
     useNewUrlParser:true,
@@ -32,7 +33,7 @@ app.use(cors());
 app.use("/api",authRoutes)
 app.use("/api",userRoutes)
 app.use("/api",categoryRoutes)
-
+app.use("/api",productRoutes)
 //proess.env.PORT,process.env.DATABASE are comming from .env file
 const port=process.env.PORT
 
