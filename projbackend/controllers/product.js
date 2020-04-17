@@ -145,7 +145,6 @@ exports.getAllProducts = (req, res) => {
 };
 
 exports.getAllUniqueCategories = (req, res) => {
-  //TODO:Read distinct
   Product.distinct("category", {}, (err, category) => {
     if (err) {
       res.status(400).json({
@@ -165,7 +164,6 @@ exports.updateStock = (req, res, next) => {
       }
     };
   });
-  //TODO: Read bulkwrite
   Product.bulkWrite(myOperations, {}, (err, products) => {
     if (err) {
       res.status(400).json({
