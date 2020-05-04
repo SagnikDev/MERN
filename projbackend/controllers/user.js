@@ -11,8 +11,8 @@ exports.getUserByID = (req, res, next, id) => {
     }
     //If found Save it to req object
     req.profile = user;
+    next();
   });
-  next();
 };
 //Another method
 exports.getUser = (req, res) => {

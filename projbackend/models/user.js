@@ -23,7 +23,7 @@ var userSchema=new Schema({
     },
     userInfo:{
         type:String,
-        required:true
+        // required:true
     },
     encry_password:{
         type:String,

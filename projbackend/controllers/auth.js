@@ -32,7 +32,7 @@ exports.signup = (req, res) => {
       return res.json({
         name: user.name,
         email: user.email,
-        info: user.userInfo
+        // info: user.userInfo
       });
     }
   });
@@ -95,11 +95,11 @@ exports.isSignedIn = expressJwt({
 exports.isAuthenticated = (req, res, next) => {
   //profile is given by user portion
   let checker =
-    req.profile &&
+  req.profile &&
     req.auth &&
     (req.profile._id == req.auth.id || req.profile._id == req.auth._id);
   if (!checker) {
-    res.status(403).json({
+    return res.status(403).json({
       error: "ACCESS DENIED"
     });
   }
@@ -108,7 +108,7 @@ exports.isAuthenticated = (req, res, next) => {
 
 exports.isAdmin = (req, res, next) => {
   if (req.profile.role == 0) {
-    res.status(403).json({
+    return res.status(403).json({
       error: "You are not admin, ACCESS DENIED"
     });
   }
