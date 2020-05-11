@@ -13,7 +13,7 @@ export const addItemToCart = (item, next) => {
   }
 };
 
-export const  = () => {
+export const loadCart = () => {
   if (typeof window !== undefined) {
     if (localStorage.getItem("cart")) {
       return JSON.parse(localStorage.getItem("cart"));

@@ -11,12 +11,13 @@ const userRoutes = require("./routes/user.js");
 const categoryRoutes = require("./routes/category.js");
 const productRoutes = require("./routes/product.js");
 const orderRoutes = require("./routes/order.js");
+const stripePaymentRoute = require("./routes/srtipePayment.js");
 //Connection establishment
 mongoose
   .connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
   })
   .then(() => {
     console.log("DB is CONNECTED,AWESOME!");
@@ -39,6 +40,7 @@ app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
 app.use("/api", orderRoutes);
+app.use("/api", stripePaymentRoute);
 //proess.env.PORT,process.env.DATABASE are comming from .env file
 const port = process.env.PORT;
 

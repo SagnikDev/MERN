@@ -7,12 +7,12 @@ const {
   getUser,
   getAllUsers,
   updateUser,
-  userPurchaseList
+  userPurchaseList,
 } = require("../controllers/user.js");
 const {
   isSignedIn,
   isAuthenticated,
-  isAdmin
+  isAdmin,
 } = require("../controllers/auth.js");
 
 //Make a parameter with the name of 'userId',Its a middle wire

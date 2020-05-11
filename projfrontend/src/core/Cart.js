@@ -8,10 +8,11 @@ import Base from "./Base.js";
 import Card from "./Card";
 import { getProducts } from "./helper/coreapicalls";
 import { loadCart } from "./helper/cartHelper";
+import StripeCheckouts from "./StripeCheckout";
 //Making Home Page
 export default function Cart() {
   const [products, setProducts] = useState([]);
-  const [reload,setReload]=useState(false)
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     setProducts(loadCart());
@@ -22,14 +23,16 @@ export default function Cart() {
       <div>
         <h2>This section is to load products</h2>
         {products.map((product, index) => {
-        return(  <Card
-            key={index}
-            product={product}
-            addToCart={false}
-            removeFromCart={true}
-            setReload={setReload}
-            reload={reload}
-          />)
+          return (
+            <Card
+              key={index}
+              product={product}
+              addToCart={false}
+              removeFromCart={true}
+              setReload={setReload}
+              reload={reload}
+            />
+          );
         })}
       </div>
     );
@@ -47,7 +50,9 @@ export default function Cart() {
     <Base title="Cart Page" description="Ready to checkout">
       <div className="row text-center">
         <div className="col-6">{loadAllProducts()}</div>
-        <div className="col-6">{loadCheckout()}</div>
+        <div className="col-6">
+          <StripeCheckouts products={products} setReload={setReload} />
+        </div>
       </div>
     </Base>
   );
