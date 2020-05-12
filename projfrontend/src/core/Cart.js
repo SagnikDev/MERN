@@ -49,7 +49,9 @@ export default function Cart() {
   return (
     <Base title="Cart Page" description="Ready to checkout">
       <div className="row text-center">
-        <div className="col-6">{loadAllProducts()}</div>
+        <div className="col-6">{products.length>0 ? loadAllProducts():(
+          <h3>No Products in Your Cart Yet!</h3>
+        )}</div>
         <div className="col-6">
           <StripeCheckouts products={products} setReload={setReload} />
         </div>
