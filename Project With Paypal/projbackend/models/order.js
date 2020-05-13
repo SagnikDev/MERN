@@ -5,11 +5,11 @@ const productCartSchema = new mongoose.Schema({
   //Refering Product Schema
   product: {
     type: ObjectId,
-    ref: "Product"
+    ref: "Product",
   },
   name: String,
   count: Number,
-  price: Number
+  price: Number,
 });
 //Storing the schema
 const ProductCart = mongoose.model("ProductCart", productCartSchema);
@@ -17,20 +17,18 @@ const ProductCart = mongoose.model("ProductCart", productCartSchema);
 const orderSchema = new mongoose.Schema(
   {
     products: [productCartSchema],
-    transactionId: {},
-    amount: {
-      type: Number
-    },
+    transaction_id: {type : String},
+    amount: { type: Number },
     address: String,
-    status:{
-      type:String,
-      default:"Received",
-      enum:["Cancelled","Delivered","Shipped","Processing","Received"]
+    status: {
+      type: String,
+      default: "Recieved",
+      enum: ["Cancelled", "Delivered", "Shipped", "Processing", "Recieved"],
     },
     updated: Date,
     user: {
       type: ObjectId,
-      ref: "User"
+      ref: "User",
     },
   },
   { timestamps: true }

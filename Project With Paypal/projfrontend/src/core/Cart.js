@@ -8,6 +8,7 @@ import Base from "./Base.js";
 import Card from "./Card";
 import { getProducts } from "./helper/coreapicalls";
 import { loadCart } from "./helper/cartHelper";
+import PaymentB from "./PaymentB";
 //Making Home Page
 export default function Cart() {
   const [products, setProducts] = useState([]);
@@ -17,7 +18,7 @@ export default function Cart() {
     setProducts(loadCart());
   }, [reload]);
 
-  const loadAllProducts = () => {
+  const loadAllProducts = (products) => {
     return (
       <div>
         <h2>This section is to load products</h2>
@@ -48,11 +49,17 @@ export default function Cart() {
   return (
     <Base title="Cart Page" description="Ready to checkout">
       <div className="row text-center">
-        <div className="col-6">{products.length>0 ? loadAllProducts():(
-          <h3>No Products in Your Cart Yet!</h3>
-        )}</div>
         <div className="col-6">
-          <h3>Payment Done here</h3>
+          {products.length > 0 ? (
+            loadAllProducts(products)
+          ) : (
+            <h3>No Products in Your Cart Yet!</h3>
+          )}
+        </div>
+        <div className="col-6">
+          <h3>
+            <PaymentB products={products} setReload={setReload} />
+          </h3>
         </div>
       </div>
     </Base>

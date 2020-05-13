@@ -6,16 +6,16 @@ const {
   createOrder,
   getAllOrders,
   getOrderStatus,
-  updateStatus
+  updateStatus,
 } = require("../controllers/order.js");
 const {
   isAdmin,
   isAuthenticated,
-  isSignedIn
+  isSignedIn,
 } = require("../controllers/auth.js");
 const {
   getUserByID,
-  pushOrderInPurchaseList
+  pushOrderInPurchaseList,
 } = require("../controllers/user.js");
 const { updateStock } = require("../controllers/product.js");
 //Working with parameters
